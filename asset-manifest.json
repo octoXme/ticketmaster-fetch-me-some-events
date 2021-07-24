@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/ticketmaster-fetch-me-some-events/static/css/main.5b806363.chunk.css",
-    "main.js": "/ticketmaster-fetch-me-some-events/static/js/main.00b8cdd9.chunk.js",
-    "main.js.map": "/ticketmaster-fetch-me-some-events/static/js/main.00b8cdd9.chunk.js.map",
+    "main.js": "/ticketmaster-fetch-me-some-events/static/js/main.63f5c76b.chunk.js",
+    "main.js.map": "/ticketmaster-fetch-me-some-events/static/js/main.63f5c76b.chunk.js.map",
     "runtime-main.js": "/ticketmaster-fetch-me-some-events/static/js/runtime-main.ddaa2e8f.js",
     "runtime-main.js.map": "/ticketmaster-fetch-me-some-events/static/js/runtime-main.ddaa2e8f.js.map",
     "static/css/2.b51c3f54.chunk.css": "/ticketmaster-fetch-me-some-events/static/css/2.b51c3f54.chunk.css",
@@ -19,6 +19,6 @@
     "static/css/2.b51c3f54.chunk.css",
     "static/js/2.74be0103.chunk.js",
     "static/css/main.5b806363.chunk.css",
-    "static/js/main.00b8cdd9.chunk.js"
+    "static/js/main.63f5c76b.chunk.js"
   ]
 }

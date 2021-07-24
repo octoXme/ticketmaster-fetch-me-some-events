@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { isEmpty, map } from 'lodash';
+import { isEmpty, map, debounce } from 'lodash';
 import { useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 
 import EventCard from 'main/eventCard';
 import PanelContent from 'components/panelContent';
-import { fetchEvents, updateInitialLoadingState, getSelectStatus, getSearchResults, getPageInfo, getSearchParams, fetchSuggestedEvents } from 'features/search/searchSlice';
-import LoadingState from 'components/loadingState';
+import { fetchEvents, getCurrentStatus, getSearchResults, getPageInfo, getSearchParams, fetchSuggestedEvents } from 'features/search/searchSlice';
 import InfiniteLoadingList from 'components/infiniteLoadingList';
 import { openDialog } from 'features/dialog/dialogSlice';
 import EventInitialState from 'main/eventInitialState';
@@ -19,11 +18,10 @@ const EventLists = ({ initialState, onUploadInitialState, onSearchInputFocus }) 
   const dispatch = useDispatch();
   const theme = useTheme();
 
-  const currentState = useSelector(getSelectStatus);
+  const currentState = useSelector(getCurrentStatus);
   const events = useSelector(getSearchResults);
   const pageInfo = useSelector(getPageInfo);
   const currentSearchParams = useSelector(getSearchParams);
-  const isInitialLoading = useSelector(state => state.search.initialLoading === true);
   const itemsPerRow = useMediaQuery(theme.breakpoints.up('lg')) ? 3 : 2;
   const [currentLoading, setCurrentLoading] = useState(null);
 
@@ -32,12 +30,19 @@ const EventLists = ({ initialState, onUploadInitialState, onSearchInputFocus }) 
     onUploadInitialState(false);
   }
 
-  const handleLoadMore = () => {
-    if (isInitialLoading) {
-      dispatch(updateInitialLoadingState(false));
-    }
+  const handleLoadMore = debounce((params) => {
     dispatch(fetchEvents({ ...currentSearchParams, pageNumber: pageInfo.number + 1 }))
-  }
+  }, 300);
+
+
+  const eventLoaded = (event) => {
+    dispatch(openDialog({
+      children: (<EventDetails event={event} />)
+    }));
+    setTimeout(() => {
+      setCurrentLoading(null);
+    }, 300);
+  };
 
   let content = () => {
     if (initialState) {
@@ -48,27 +53,14 @@ const EventLists = ({ initialState, onUploadInitialState, onSearchInputFocus }) 
         />
       );
     }
-
-    if (isInitialLoading) {
-      return <LoadingState />
-    }
   
-    if (currentState !== 'loading' && isEmpty(events)) {
-      return <EventEmptyState />
+    if (currentState === 'idle' && isEmpty(events)) {
+      return <EventEmptyState />;
     }
 
     if (currentState === 'error') {
       return <EventErrorState />;
     }
-    
-    const eventLoaded = (event) => {
-      dispatch(openDialog({
-        children: (<EventDetails event={event} />)
-      }));
-      setTimeout(() => {
-        setCurrentLoading(null);
-      }, 300);
-    };
 
     return (
       <PanelContent itemsPerRow={itemsPerRow}>
@@ -90,7 +82,7 @@ const EventLists = ({ initialState, onUploadInitialState, onSearchInputFocus }) 
       hasChildren={!isEmpty(events)}
       dataLength={events.length}
       loadFunction={handleLoadMore}
-      hasMore={pageInfo.totalPages > pageInfo.number}
+      hasMore={pageInfo.totalPages > pageInfo.number + 1}
     >
       {content()}
     </InfiniteLoadingList>

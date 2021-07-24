@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Chip, Toolbar, CircularProgress } from '@material-ui/core';
 import { map, isEmpty } from 'lodash';
-import { fetchEvents, getSearchParams, getSelectStatus, resetEventList } from 'features/search/searchSlice';
+import { fetchEvents, getSearchParams, getCurrentStatus, resetEventList } from 'features/search/searchSlice';
 import { CloseIcon } from 'components/icons';
 
 const EventSearchTags = () => {
@@ -10,7 +10,7 @@ const EventSearchTags = () => {
   const [deleting, setDeleting] = useState(null);
   const currentSearchParams = useSelector(getSearchParams);
   const currentSearchTitles = useSelector(state => state.search.searchTitles);
-  const currentState = useSelector(getSelectStatus);
+  const currentState = useSelector(getCurrentStatus);
 
   if (isEmpty(currentSearchTitles)) return false;
 

@@ -6,7 +6,6 @@ const apiKey = process.env.REACT_APP_TICKET_MASTER_API_KEY;
 
 export const initialState = {
   list: [],
-  initialLoading: true,
   status: 'idle',
   error: '',
   searchTitles: '',
@@ -63,9 +62,6 @@ export const SearchSlice = createSlice({
     resetEventList: (state) => {
       state.list = initialState.list;
     },
-    updateInitialLoadingState: (state, action) => {
-      state.initialLoading = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -77,7 +73,6 @@ export const SearchSlice = createSlice({
         payload
       }) => {
         state.status = 'idle';
-        state.initialLoading = false;
         state.list.push(...get(payload, ['_embedded', 'events'], []));      
         state.page = payload.page;
         state.searchParams = payload.params;
@@ -87,7 +82,6 @@ export const SearchSlice = createSlice({
         payload
       }) => {
         if (payload) state.error = payload.message;
-        state.initialLoading = false;
         state.status = 'error';
       })
       .addCase(fetchSuggestedEvents.pending, (state) => {
@@ -98,7 +92,6 @@ export const SearchSlice = createSlice({
         payload
       }) => {
         state.status = 'idle';
-        state.initialLoading = false;
         state.searchTitles = [{ key: 'suggested', label: 'Suggested' }];
         state.list.push(...get(payload, ['_embedded', 'events'], []));
       })
@@ -106,15 +99,14 @@ export const SearchSlice = createSlice({
         payload
       }) => {
         if (payload) state.error = payload.message;
-        state.initialLoading = false;
         state.status = 'error';
       });
   },
 });
 
-export const { resetEvent, resetEventList, updateInitialLoadingState} = SearchSlice.actions;
+export const { resetEvent, resetEventList } = SearchSlice.actions;
 
-export const getSelectStatus = state => state.search.status;
+export const getCurrentStatus = state => state.search.status;
 
 export const getSearchResults = state => state.search.list;
 

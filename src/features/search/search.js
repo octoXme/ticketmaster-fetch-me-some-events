@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Divider, Fade, Badge, Input } from '@material-ui/core';
+import { Paper, Divider, Fade, Badge, Input, CircularProgress } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Formik, Field } from 'formik';
@@ -13,7 +13,7 @@ import DefaultButton from 'components/defaultButton';
 import { SearchIcon, FilterIcon, CloseIcon } from 'components/icons';
 import { countryISOToFlagEmoji } from 'components/inputs/countryListData';
 
-import { resetEvent, resetEventList, fetchEvents, getSearchParams, initialState } from './searchSlice';
+import { resetEvent, resetEventList, fetchEvents, getSearchParams, initialState, getCurrentStatus } from './searchSlice';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,6 +55,7 @@ const Search = ({ onSearch, onReset, searchRef }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const currentSearchParams = useSelector(getSearchParams);
+  const currentStatus = useSelector(getCurrentStatus);
   const [value, setValue] = useState(currentSearchParams.keyword);
 
   React.useEffect(() => {
@@ -65,6 +66,7 @@ const Search = ({ onSearch, onReset, searchRef }) => {
     dispatch(resetEventList());
     return dispatch(fetchEvents(params));
   }
+
   const handleChange = (event) => {
     const { value: newValue } = event.target;
     setValue(newValue);
@@ -138,18 +140,16 @@ const Search = ({ onSearch, onReset, searchRef }) => {
           ref={searchRef}
           autoFocus
           disableUnderline
+          disabled={currentStatus === 'loading'}
         />
-        {currentSearchParams.keyword !== '' && (
-          <Fade in={currentSearchParams.keyword !== ''} timeout={300}>
-            <IconButton onClick={handleClear} icon={<CloseIcon fontSize="small" />} title='Clear Search' />
-          </Fade>
-        )}
+        {currentStatus === 'loading' && <CircularProgress size={20} />}
         <Divider className={classes.divider} orientation="vertical" />
         <IconButton
           type="submit"
           title="Search Event By Keywords"
           onClick={handleSearch}
           icon={<SearchIcon fontSize="small" />}
+          disabled={currentStatus === 'loading'}
         />
         <IconButton
           title="Search Filters"

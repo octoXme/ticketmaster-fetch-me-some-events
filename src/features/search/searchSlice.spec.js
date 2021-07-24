@@ -12,7 +12,6 @@ describe('search reducer', () => {
     const state = searchReducer(initialState, action);
     expect(state).toEqual({
       ...initialState,
-      initialLoading: false,
       status: 'error',
     });
   });

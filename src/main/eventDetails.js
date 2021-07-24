@@ -32,7 +32,7 @@ const useStyle = makeStyles(theme => ({
   },
   image: {
     width: '100%',
-    height: 150,
+    height: 'auto',
     filter: 'grayscale(50%)',
     color: theme.palette.common.white,
     display: 'flex',

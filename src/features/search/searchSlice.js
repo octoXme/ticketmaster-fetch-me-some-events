@@ -90,6 +90,7 @@ export const SearchSlice = createSlice({
         payload
       }) => {
         if (payload) state.error = payload.message;
+        state.initialLoading = false;
         state.status = 'error';
       })
       .addCase(fetchSuggestedEvents.pending, (state) => {
@@ -108,6 +109,7 @@ export const SearchSlice = createSlice({
         payload
       }) => {
         if (payload) state.error = payload.message;
+        state.initialLoading = false;
         state.status = 'error';
       });
   },

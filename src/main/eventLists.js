@@ -13,6 +13,7 @@ import { openDialog } from 'features/dialog/dialogSlice';
 import EventInitialState from 'main/eventInitialState';
 import EventEmptyState from 'main/eventEmptyState';
 import EventDetails from './eventDetails';
+import EventErrorState from './eventErrorState';
 
 const EventLists = ({ initialState, onUploadInitialState, onSearchInputFocus }) => {
   const dispatch = useDispatch();
@@ -54,6 +55,10 @@ const EventLists = ({ initialState, onUploadInitialState, onSearchInputFocus }) 
   
     if (currentState !== 'loading' && isEmpty(events)) {
       return <EventEmptyState />
+    }
+
+    if (currentState === 'error') {
+      return <EventErrorState />;
     }
     
     const eventLoaded = (event) => {

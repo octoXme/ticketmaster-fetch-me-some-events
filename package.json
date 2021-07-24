@@ -1,8 +1,8 @@
 {
-  "name": "fetch-me-some-events",
+  "name": "ticketmaster-fetch-me-some-events",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://octoxme.github.io/fetch-me-some-events",
+  "homepage": "https://octoxme.github.io/ticketmaster-fetch-me-some-events",
   "dependencies": {
     "@material-ui/core": "^4.12.1",
     "@material-ui/lab": "^4.0.0-alpha.60",

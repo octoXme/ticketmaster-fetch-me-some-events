@@ -55,7 +55,7 @@ const EventImage = ({
   let image = maxBy(filter(images, x => x.ratio === ratio), 'height');
   
   if (isEmpty(image)) {
-    image = head[images];
+    image = head(images);
   }
 
   return (

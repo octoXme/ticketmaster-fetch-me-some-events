@@ -1,26 +1,18 @@
-import { isEmpty, mapKeys, map, isArray, isString, isBoolean } from 'lodash';
+import { isEmpty, isString, mapKeys } from 'lodash';
 
-const validValue = value => !isEmpty(value) || value === true || value === false;
+// only consider string params
+const validValue = value => !isEmpty(value) && isString(value);
 
 const formatSearchParams = (params) => {
   let url = '';
-  if (!isEmpty(params)) {
-    mapKeys(params, (value, key) => {
-      if (validValue(value)) {
-        if (isString(value) || isBoolean(value)) {
-          url += `&${key}=${encodeURIComponent(value)}`;
-        } else if (isArray(value)) {
-          map(value, (x) => {
-            if (validValue(x)) {
-              url += `&${key}=${encodeURIComponent(x)}`;
-            }
-          });
-        } else {
-          formatSearchParams(value);
-        }
-      }
-    });
-  }
+  if (isEmpty(params)) return '';
+
+  mapKeys(params, (value, key) => {
+    if (validValue(value)) {
+      url += `&${key}=${encodeURIComponent(value)}`;
+    }
+  });
+
   return url;
 };
 

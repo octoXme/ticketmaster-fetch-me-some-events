@@ -1,42 +1,56 @@
 import moment from 'moment';
+import { isString } from 'lodash';
 
-const sortDateFormat = 'ddd, HH:mm';
-const longDateFormat = 'ddd, DD-MMM-YY h:mm a';
+export const PreferredShortDateTimeFormat = 'ddd, HH:mm';
+export const PreferredLongDateTimeFormat = 'ddd, DD-MMM-YY h:mm a';
+export const PreferredLongDateFormat = 'dddd, MMMM Do YYYY';
 
-export const getDateInfo = (dateString) => {
-  if (!dateString) return '';
-
-  const date = moment(moment(dateString), 'YYYY/MM/DD');
+export const getDateInfo = (dateString, dateFormat = 'YYYY-MM-DD') => {
+  if (!dateString || !isString(dateString)) return '';
+  const date = moment(dateString, dateFormat);
+  // check if date is valid
+  if (!date.isValid()) return '';
   const year = date.format('YYYY');
   const month = date.format('MMM');
   const day   = date.format('D');
   return ({ year, month, day });
 };
 
-export const getFormattedDate = (dateString, timeString = '') => {
-  let newDate = dateString;
-  let format = longDateFormat;
+export const getFormattedDate = (
+  dateString,
+  timeString = '',
+  dateFormat = 'YYYY-MM-DD',
+  timeFormat = 'hh:mm:ss',
+  displayFormat = PreferredLongDateTimeFormat,
+  ) => {
+  if (!isString(dateString) || !isString(timeString)) return '';
+
+  let newDate = null;
+  let format = displayFormat; // display format
+  
+  newDate = moment(dateString, dateFormat);
 
   if (timeString) {
-    newDate = dateString + ' ' + timeString;
+    newDate = moment(dateString + ' ' + timeString, dateFormat + ' ' + timeFormat);
   }
 
-  if (!newDate) return '';
-
-  // convert new date string to moment date
-  newDate = moment(newDate);
+  if (!newDate.isValid()) return '';
 
   const isSameYear = newDate.isSame(moment(), 'year');
 
   if (isSameYear) {
-    format = sortDateFormat;
+    format = PreferredShortDateTimeFormat;
   }
   
   return newDate.format(format);
 };
 
-export const formatDate = (dateString, format) => {
-  if (!dateString) return '';
+export const formatDate = (dateString, dateFormat = 'YYYY-MM-DD', displayFormat = PreferredLongDateFormat) => {
+  if (!dateString || !isString(dateString)) return '';
 
-  return moment(dateString).format(format);
+  const newDate = moment(dateString, dateFormat);
+  
+  if (!newDate.isValid()) return ''
+
+  return newDate.format(displayFormat);
 }

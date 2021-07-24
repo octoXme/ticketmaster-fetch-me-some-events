@@ -59,13 +59,19 @@ const EventCard = ({
   onClick,
   onEventLoaded,
 }) => {
+  const classes = useStyles();
+  const [progress, setProgress] = useState(0);
+
   const { images, name, url } = event;
   const date = event.dates?.start;
   const location = event?.place ?? event._embedded?.venues?.[0];
 
-  const classes = useStyles();
-  const dateInfo = getDateInfo(date.localDate);
-  const [progress, setProgress] = useState(0);
+  const startDate = date.dateTime ?? date.localDate;
+  // time string can be read from dateTime
+  // however, not all events returns dateTime
+  // uses localTime for the time string
+  const startTime = date.localTime;
+  const dateInfo = getDateInfo(startDate);
 
   useEffect(() => {
     if (loading) {
@@ -133,7 +139,7 @@ const EventCard = ({
           subheader={(
             <Box>
               <div>
-                <Typography color="secondary" variant="caption">{getFormattedDate(date.localDate, date.localTime)}</Typography>
+                <Typography color="secondary" variant="caption">{getFormattedDate(startDate, startTime)}</Typography>
               </div>
               <EventAddress location={location} displayAddressShort />
             </Box>

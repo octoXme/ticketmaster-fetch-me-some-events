@@ -1,10 +1,19 @@
-import searchReducer, {initialState} from './searchSlice';
+import searchReducer, { initialState, fetchEvents } from './searchSlice';
 
-// TODO 
 describe('search reducer', () => {
-  it('should handle initial state', () => {
-    expect(searchReducer(undefined, {
-      type: 'unknown'
-    })).toEqual(initialState);
+  it('set state to loading when fetchEvent is pending', () => {
+    const action = { type: fetchEvents.pending };
+    const state = searchReducer(initialState, action);
+    expect(state).toEqual({ ...initialState, status: 'loading', error: null });
+  });
+
+  it('set state to error when fetchEvent is rejected', () => {
+    const action = { type: fetchEvents.rejected };
+    const state = searchReducer(initialState, action);
+    expect(state).toEqual({
+      ...initialState,
+      initialLoading: false,
+      status: 'error',
+    });
   });
 });

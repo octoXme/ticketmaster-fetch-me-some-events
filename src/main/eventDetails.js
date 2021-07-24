@@ -101,6 +101,9 @@ const EventDetails = ({ event }) => {
   const geoLocation = event?.place?.location ?? event._embedded?.venues?.[0]?.location;
   const showGoogleMap = geoLocation && Number(geoLocation?.latitude) !== 0 && Number(geoLocation?.longitude) !== 0;
 
+  const startTime = event.dates?.start?.localTime;
+  const endTime = event.dates?.start?.localTime;
+
   const defaultProps = {
     center: {
       lat: Number(geoLocation?.latitude),
@@ -130,11 +133,11 @@ const EventDetails = ({ event }) => {
         <div className={classes.content}>
           <div className="items-container">
             <Box className="flex-row-container with-gutter" alignItems="flex-start">
-              <ListItem tooltip="Start Date" icon={<TimeIcon />} title={formatDate(startDate, 'dddd, MMMM Do YYYY')} content={formatDate(startDate, 'h:mm a')} />
+              <ListItem tooltip="Start Date" icon={<TimeIcon />} title={formatDate(startDate)} content={formatDate(startTime, 'hh:mm:ss', 'h:mm a')} />
               {endDate && (
                 <>
                   <Typography variant="subtitle2">TO</Typography>
-                  <ListItem tooltip="End Date" icon={<TimeIcon />} title={formatDate(endDate, 'dddd, MMMM Do YYYY')} content={formatDate(endDate, 'h:mm a')} />
+                  <ListItem tooltip="End Date" icon={<TimeIcon />} title={formatDate(endDate)} content={formatDate(endTime, 'hh:mm:ss', 'h:mm a')} />
                 </>
               )}
             </Box>

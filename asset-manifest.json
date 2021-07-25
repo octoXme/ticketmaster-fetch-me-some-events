@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/ticketmaster-fetch-me-some-events/static/css/main.5b806363.chunk.css",
-    "main.js": "/ticketmaster-fetch-me-some-events/static/js/main.63f5c76b.chunk.js",
-    "main.js.map": "/ticketmaster-fetch-me-some-events/static/js/main.63f5c76b.chunk.js.map",
+    "main.js": "/ticketmaster-fetch-me-some-events/static/js/main.4ca58367.chunk.js",
+    "main.js.map": "/ticketmaster-fetch-me-some-events/static/js/main.4ca58367.chunk.js.map",
     "runtime-main.js": "/ticketmaster-fetch-me-some-events/static/js/runtime-main.ddaa2e8f.js",
     "runtime-main.js.map": "/ticketmaster-fetch-me-some-events/static/js/runtime-main.ddaa2e8f.js.map",
     "static/css/2.b51c3f54.chunk.css": "/ticketmaster-fetch-me-some-events/static/css/2.b51c3f54.chunk.css",
-    "static/js/2.74be0103.chunk.js": "/ticketmaster-fetch-me-some-events/static/js/2.74be0103.chunk.js",
-    "static/js/2.74be0103.chunk.js.map": "/ticketmaster-fetch-me-some-events/static/js/2.74be0103.chunk.js.map",
+    "static/js/2.3ec2c589.chunk.js": "/ticketmaster-fetch-me-some-events/static/js/2.3ec2c589.chunk.js",
+    "static/js/2.3ec2c589.chunk.js.map": "/ticketmaster-fetch-me-some-events/static/js/2.3ec2c589.chunk.js.map",
     "index.html": "/ticketmaster-fetch-me-some-events/index.html",
     "static/css/2.b51c3f54.chunk.css.map": "/ticketmaster-fetch-me-some-events/static/css/2.b51c3f54.chunk.css.map",
     "static/css/main.5b806363.chunk.css.map": "/ticketmaster-fetch-me-some-events/static/css/main.5b806363.chunk.css.map",
-    "static/js/2.74be0103.chunk.js.LICENSE.txt": "/ticketmaster-fetch-me-some-events/static/js/2.74be0103.chunk.js.LICENSE.txt",
+    "static/js/2.3ec2c589.chunk.js.LICENSE.txt": "/ticketmaster-fetch-me-some-events/static/js/2.3ec2c589.chunk.js.LICENSE.txt",
     "static/media/index.css": "/ticketmaster-fetch-me-some-events/static/media/rubik-latin-900italic.7f45ff04.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.ddaa2e8f.js",
     "static/css/2.b51c3f54.chunk.css",
-    "static/js/2.74be0103.chunk.js",
+    "static/js/2.3ec2c589.chunk.js",
     "static/css/main.5b806363.chunk.css",
-    "static/js/main.63f5c76b.chunk.js"
+    "static/js/main.4ca58367.chunk.js"
   ]
 }

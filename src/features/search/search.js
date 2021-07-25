@@ -13,7 +13,7 @@ import DefaultButton from 'components/defaultButton';
 import { SearchIcon, FilterIcon } from 'components/icons';
 import { countryISOToFlagEmoji } from 'components/inputs/countryListData';
 
-import { resetEvent, resetEventList, fetchEvents, getSearchParams, initialState, getCurrentStatus } from './searchSlice';
+import { resetEvent, fetchEvents, getSearchParams, initialState, getCurrentStatus } from './searchSlice';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -63,7 +63,9 @@ const Search = ({ onSearch, onReset, searchRef }) => {
   }, [currentSearchParams])
 
   const onSearchEvents = (params) => {
-    dispatch(resetEventList());
+    if (onSearch) {
+      onSearch();
+    }
     return dispatch(fetchEvents(params));
   }
 
@@ -75,9 +77,6 @@ const Search = ({ onSearch, onReset, searchRef }) => {
   const handleSearch = (event) => {
     event.preventDefault();
     if (!isSearchStringValid(value)) return;
-    if (onSearch) {
-      onSearch();
-    }
     onSearchEvents({ ...currentSearchParams, keyword: value });
   };
 
@@ -100,13 +99,9 @@ const Search = ({ onSearch, onReset, searchRef }) => {
       <Formik
         initialValues={{ ...currentSearchParams }}
         onSubmit={(values, { setSubmitting }) => {
-          onSearchEvents({ ...values }).then(() => {
+          onSearchEvents({ pageNumber: 0, pageSize: 20, ...values }).then(() => {
             setSubmitting(false);
             dispatch(closeDrawer());
-
-            if (onSearch) {
-              onSearch();
-            }
           });
         }}
       >

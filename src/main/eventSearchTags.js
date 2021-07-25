@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Chip, CircularProgress, Box } from '@material-ui/core';
 import { map, isEmpty } from 'lodash';
-import { fetchEvents, getSearchParams, resetEventList } from 'features/search/searchSlice';
+import { fetchEvents, getSearchParams } from 'features/search/searchSlice';
 import { CloseIcon } from 'components/icons';
 
 /**
@@ -20,7 +20,6 @@ const EventSearchTags = () => {
 
   const removeSearchTag = (param) => {
     setDeleting(param);
-    dispatch(resetEventList())
     dispatch(fetchEvents({ ...currentSearchParams, [param]: '' })).finally(() => setDeleting(null));
   }
 

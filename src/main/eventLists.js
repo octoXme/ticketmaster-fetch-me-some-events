@@ -44,9 +44,8 @@ const EventLists = ({ initialState, onUpdateInitialState, onSearchInputFocus }) 
   }
 
   const handleLoadMore = debounce((params) => {
-    dispatch(fetchEvents({ ...currentSearchParams, pageNumber: pageInfo.number + 1 }))
+    dispatch(fetchEvents({ ...currentSearchParams, pageNumber: pageInfo.number + 1, shouldClearList: false }))
   }, 300);
-
 
   const eventLoaded = (event) => {
     dispatch(openDialog({

@@ -46,11 +46,11 @@ export const fetchSuggestedEvents = createAsyncThunk(
 
 export const fetchEvents = createAsyncThunk(
   'search/fetchEvents',
-  async ({ pageNumber = 0, pageSize = 20, ...params }) => {
+  async ({ pageNumber = 0, pageSize = 20, shouldClearList = true, ...params }) => {
     const searchParams = formatSearchParams(params);
     const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&page=${pageNumber}&size=${pageSize}&sort=date,asc&locale=*${searchParams}`);
     const data = await response.json();
-    return { ...data, params};
+    return { ...data, params, shouldClearList};
   }
 );
 
@@ -59,9 +59,6 @@ export const SearchSlice = createSlice({
   initialState,
   reducers: {
     resetEvent: state => state = initialState,
-    resetEventList: (state) => {
-      state.list = initialState.list;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -73,7 +70,14 @@ export const SearchSlice = createSlice({
         payload
       }) => {
         state.status = 'idle';
-        state.list.push(...get(payload, ['_embedded', 'events'], []));      
+        let list = get(payload, ['_embedded', 'events'], []);
+        // shouldClearList need to set to false when its not an new instance of search
+        // e.g. when load the next page for current search params
+        if (payload.shouldClearList) {
+          state.list = list;
+        } else {
+          state.list.push(...list);
+        }
         state.page = payload.page;
         state.searchParams = payload.params;
         state.searchTitles = transformSearchParam(payload.params);
@@ -104,7 +108,7 @@ export const SearchSlice = createSlice({
   },
 });
 
-export const { resetEvent, resetEventList } = SearchSlice.actions;
+export const { resetEvent } = SearchSlice.actions;
 
 export const getCurrentStatus = state => state.search.status;
 

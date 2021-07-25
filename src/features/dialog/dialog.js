@@ -22,6 +22,7 @@ const DefaultDialog = () => {
       open={state}
       TransitionComponent={Transition}
       onClose={() => dispatch(closeDialog())}
+      scroll="body"
       {...options}
     />
   );

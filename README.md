@@ -10,10 +10,11 @@ In the project directory, you can run:
 
 ### `npm install`
 
-Install all dependencies in local node_modules folder
-* If you running issue while installing dependencies, please check with your npm and node version
-npm v7.19.1
-node v12.16.3
+Install all dependencies in local node_modules folder<br />
+If you running into issues while installing dependencies,<br />
+please check with your npm and node version<br />
+npm v7.19.1<br />
+node v12.16.3<br />
 
 ### `npm start`
 

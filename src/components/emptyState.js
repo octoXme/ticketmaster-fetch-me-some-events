@@ -1,6 +1,14 @@
 import React from 'react';
 import { Typography, IconButton, Box } from '@material-ui/core';
 
+/**
+ * Define basic layout of empty state
+ * @param {func} onClick - optional 
+ * @param {any} icon - optional
+ * @param {string} title
+ * @param {string} subtitle
+ * @param {any} content
+ */
 const EmptyState = ({
   onClick,
   icon,

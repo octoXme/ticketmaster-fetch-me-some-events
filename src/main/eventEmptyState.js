@@ -25,6 +25,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+/**
+ * Simple component that shows app is in empty state
+ */
 const EventEmptyState = () => {
   const classes = useStyles();
 

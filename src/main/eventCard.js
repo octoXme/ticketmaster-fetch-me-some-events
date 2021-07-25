@@ -53,6 +53,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+/**
+ * A Component that display simple details of an event
+ * 
+ * @param {object} event
+ * @param {bool} loading - will set to true when user click on an event that they wish to view
+ * @param {func} onClick - click on the card or detail icon
+ * @param {func} onEventLoaded - once loader reaches 100%, this event should fire to notify parent that loading is finished
+ */
 const EventCard = ({
   event,
   loading,
@@ -63,15 +71,17 @@ const EventCard = ({
   const [progress, setProgress] = useState(0);
 
   const { images, name, url } = event;
+  // event start date
   const date = event.dates?.start;
-  const location = event?.place ?? event._embedded?.venues?.[0];
-
   const startDate = date.dateTime ?? date.localDate;
   // time string can be read from dateTime
   // however, not all events returns dateTime
   // uses localTime for the time string
   const startTime = date.localTime;
+  // display date and month of the event
   const dateInfo = getDateInfo(startDate);
+  // event location
+  const location = event?.place ?? event._embedded?.venues?.[0];
 
   useEffect(() => {
     if (loading) {

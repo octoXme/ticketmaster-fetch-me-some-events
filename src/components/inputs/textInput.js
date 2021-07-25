@@ -4,7 +4,7 @@ import { TextField } from '@material-ui/core';
 const TextInput = ({
   onChange,
   field: { name, value },
-  form: { setFieldValue, setFieldTouched },
+  form: { setFieldValue },
   ...other
 }) => {
   const handleChange = (e) => {

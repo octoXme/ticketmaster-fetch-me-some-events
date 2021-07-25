@@ -14,6 +14,12 @@ function ElevationScroll(props) {
   });
 }
 
+/**
+ * Manage the main page layout
+ * @param {any} renderHeader page header - none scroll
+ * @param {any} renderTopContent - on top of the content - in scroll
+ * @param {any} renderContent - main content - in scroll
+ */
 const DefaultPageLayout = ({ renderHeader, renderTopContent, renderContent, ...props }) => {
   return (
     <React.Fragment>
@@ -26,8 +32,8 @@ const DefaultPageLayout = ({ renderHeader, renderTopContent, renderContent, ...p
       </AppBar>
     </ElevationScroll>
     <Toolbar/>
-    {renderTopContent && renderTopContent}
     <Container>
+      {renderTopContent && renderTopContent}
       <Box my={2}>
         {renderContent}
       </Box>

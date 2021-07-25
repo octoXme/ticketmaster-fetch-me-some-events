@@ -11,6 +11,7 @@ import Dialog from 'features/dialog/dialog';
 
 require('typeface-rubik')
 
+// overwrite default theme
 const theme = createTheme({
   palette: {
     primary: {
@@ -18,7 +19,7 @@ const theme = createTheme({
     },
     secondary: deepOrange,
     background: {
-      default: '#eff3f6', //'#eaedf7',
+      default: '#eff3f6',
     },
     text: {
       primary: '#374957',
@@ -64,7 +65,7 @@ function App() {
         renderContent={(
           <EventLists
             initialState={initialState}
-            onUploadInitialState={state => setInitialState(state)}
+            onUpdateInitialState={state => setInitialState(state)}
             onSearchInputFocus={onSearchInputFocus}
           />
         )}

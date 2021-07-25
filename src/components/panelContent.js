@@ -7,27 +7,16 @@ const useStyles = makeStyles(theme => ({
   root: ({ gutter }) => ({
     display: 'flex',
     flexDirection: 'column',
+    gap: gutter,
     [theme.breakpoints.up('sm')]: {
       flexDirection: 'row',
-    },
-    '& > div:not(.dummy):not(:first-child)': {
-      marginTop: gutter,
-      // remove gutter
-      marginLeft: 0,
-      [theme.breakpoints.up('sm')]: {
-        marginTop: 0,
-        marginLeft: gutter,
-      },
-    },
-    '& > div:not(.dummy):empty': {
-      display: 'none',
     },
   }),
   toTop: ({ gutter }) => ({
     marginTop: gutter,
   }),
   gutter: ({ gutter }) => ({
-    marginLeft: gutter,
+    gap: gutter,
   }),
   dummy: {
     flex: '1 1 100%',
@@ -37,6 +26,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+/**
+ * Divide given children (array of items) into number of item per row
+ * @param {any} children - react node/element that will divide into rows 
+ * @param {number} gutter - gaps between items
+ * @param {number} itemsPerRow - number of items per row
+*/
 const PanelContent = ({
   children,
   gutter = 24,
@@ -51,29 +46,14 @@ const PanelContent = ({
     map(tileRows, (row, rowIndex) => (
       <div
         key={rowIndex.toString()}
-        className={clsx(
-          classes.root,
-          rowIndex !== 0 && classes.toTop,
-        )}
+        className={clsx(classes.root, rowIndex !== 0 && classes.toTop)}
       >
         <React.Fragment key={rowIndex}>
-          {map(row, (x, index) => {
-            // add gutter between items
-            // exclude the one that previous item (row[index - 1]) if render empty content
-            const withCutter = index % itemsPerRow !== 0 && row[index - 1] !== undefined;
-
-            return (
-              <div
-                key={index.toString()}
-                className={clsx(
-                  classes.item,
-                  withCutter && classes.gutter,
-                )}
-              >
-                {x}
-              </div>
-            );
-          })}
+          {map(row, (x, index) => (
+            <div key={index.toString()} className={classes.item}>
+              {x}
+            </div>
+          ))}
           {size(row) < itemsPerRow && times(itemsPerRow - size(row), dummyIndex => dummy(dummyIndex))}
         </React.Fragment>
       </div>

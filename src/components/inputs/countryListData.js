@@ -1,5 +1,7 @@
-// Supported Country Codes
-// https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/#supported-country-codes
+/**
+ * Supported Country Codes
+ * https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/#supported-country-codes
+ */
 export const countryList = [{
     'code': 'AD',
     'label': 'Andorra'

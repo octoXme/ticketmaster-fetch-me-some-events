@@ -1,7 +1,12 @@
 import { SvgIcon } from '@material-ui/core';
 
-// url http://www.toicon.com/icons
-// author Shannon E Thomas
+/**
+ * Icon helper that define icons that use throughout the app
+ * reference url http://www.toicon.com/icons
+ * author Shannon E Thomas
+ * and
+ * https://fonts.google.com/icons?selected=Material+Icons
+ */
 
 export const TimeIcon = props => (
   <SvgIcon viewBox="0 0 32 32" {...props}>
@@ -76,3 +81,9 @@ export const ErrorIcon = props => (
     <path d="M10,10h2v2h-2V10z M14,12h2v-2h-2V12z M28,11v15v2c-1.563,0-2.383-0.683-3.042-1.231  c-1.259-1.049-2.265-1.048-3.523,0c-2.033,1.692-4.118,1.637-6.083,0c-1.283-1.069-2.289-1.025-3.518,0  C9.805,28.46,7.68,28.325,6,26.968v-5.152C4.839,21.402,4,20.302,4,19s0.839-2.402,2-2.816V11c0-3.866,3.134-7,7-7h8  C24.866,4,28,7.134,28,11z M7,20h4c-1.302,0-2.402-0.839-2.816-2H7C5.676,18,5.678,20,7,20z M26,11c0-2.757-2.243-5-5-5h-8  c-2.757,0-5,2.243-5,5v5h0.184c0.414-1.161,1.514-2,2.816-2h8v2h-8c-1.324,0-1.322,2,0,2h8v2h-5v2H8v3.857  c1.048,0.399,1.819-0.012,2.553-0.625c2.035-1.697,4.119-1.633,6.079,0c1.281,1.067,2.289,1.027,3.522,0  c2.046-1.704,4.172-1.548,5.846-0.196V11z" />
   </SvgIcon>
 );
+
+export const ImageFallBackIcon = props => (
+  <SvgIcon viewBox="0 0 24 24" {...props}>
+    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5v-4.58l.99.99 4-4 4 4 4-3.99L19 12.43V19zm0-9.41l-1.01-1.01-4 4.01-4-4-4 4-.99-1V5h14v4.59z" />
+  </SvgIcon>
+)

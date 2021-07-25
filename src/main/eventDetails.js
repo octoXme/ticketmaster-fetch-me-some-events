@@ -90,20 +90,35 @@ const useStyle = makeStyles(theme => ({
 
 const Marker = () => <GoogleMapIcon color="secondary" fontSize="large" />;
 
+/**
+ * 
+ * @param {object} event
+ * https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/#search-events-v2 
+ * 
+ * Show event details include start and end date
+ * address
+ * details
+ * Google map location - note: there are some geo location that provided by api is incorrect
+ */
+
 const EventDetails = ({ event }) => {
-  console.log('event....', event)
   const classes = useStyle();
   const dispatch = useDispatch();
+  // event dates
   const startDate = event.dates?.start?.dateTime ?? event.dates?.start?.localDate;
   const endDate = event.dates?.end?.dateTime ?? event.dates?.end?.localDate;
-  const location = event?.place ?? event._embedded?.venues?.[0];
-  const details = event?.info ?? event?.description;
-  const geoLocation = event?.place?.location ?? event._embedded?.venues?.[0]?.location;
-  const showGoogleMap = geoLocation && Number(geoLocation?.latitude) !== 0 && Number(geoLocation?.longitude) !== 0;
-
   const startTime = event.dates?.start?.localTime;
   const endTime = event.dates?.start?.localTime;
 
+  // location - address and geo location
+  const location = event?.place ?? event._embedded?.venues?.[0];
+  const geoLocation = location?.location ?? location?.location;
+  const showGoogleMap = geoLocation && Number(geoLocation?.latitude) !== 0 && Number(geoLocation?.longitude) !== 0;
+
+  // event details
+  const details = event?.info ?? event?.description;
+
+  // google map default props
   const defaultProps = {
     center: {
       lat: Number(geoLocation?.latitude),

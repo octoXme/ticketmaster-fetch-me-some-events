@@ -24,6 +24,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+/**
+ * A simple component that being used when data is loading
+ */
 const LoadingState = () => {
   const classes = useStyles();
   return (

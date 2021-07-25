@@ -6,13 +6,16 @@ const useStyles = makeStyles(() => ({
   root: {
     borderRadius: 4,
   },
-  prefix: {
-    width: 32,
-    display: 'flex',
-    alignItems: 'center',
-  },
 }))
 
+/**
+ * Extension of material ui Button component
+ * To accept loading and icon
+ * @param {bool} loading 
+ * @param {any} icon
+ * @param {string} color 'default' | 'inherit' | 'primary' | 'secondary'
+ * @param {any} children
+ */
 const DefaultButton = ({
   loading,
   icon,
@@ -22,10 +25,23 @@ const DefaultButton = ({
 }) => {
   const classes = useStyles();
 
+  const startIcon = () => {
+    if (loading) {
+      return <CircularProgress size={24} color={color} />;
+    }
+    if (icon) {
+      return icon;
+    }
+    return null;
+  }
+
   return (
-    <Button className={classes.root} color={color} {...other}>
-      {loading && <div className={classes.prefix}><CircularProgress size={24} color={color} /></div>}
-      {icon && <div className={classes.prefix}>{icon}</div>}
+    <Button
+      className={classes.root}
+      color={color}
+      startIcon={startIcon()}
+      {...other}
+    >
       {children}
     </Button>
   )

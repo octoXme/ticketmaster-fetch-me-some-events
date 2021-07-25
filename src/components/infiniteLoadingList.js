@@ -14,6 +14,14 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
+/**
+ * Third-party library to load more data
+ * @param {bool} hasChildren - whether data is empty
+ * @param {number} dataLength - the size of the current loaded data
+ * @param {bool} hasMore - to determine whether to load next page
+ * @param {func} loadFunction - function to load next set of data
+ * @param {any} children
+ */
 const InfiniteLoadingList = ({
   hasChildren,
   dataLength,

@@ -26,6 +26,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+/**
+ * Simple component that shows app is in error state
+ * Unfortunately, there is no response payload comes back - undefined
+ */
 const EventErrorState = () => {
   const classes = useStyles();
   const error = useSelector(state => state.search.error);

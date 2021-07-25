@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Divider, Fade, Badge, Input, CircularProgress } from '@material-ui/core';
+import { Paper, Divider, Badge, Input, CircularProgress } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Formik, Field } from 'formik';
@@ -10,7 +10,7 @@ import isSearchStringValid from 'helpers/is-search-string-valid';
 import { CountrySelector, TextInput } from 'components/inputs';
 import IconButton from 'components/iconButton';
 import DefaultButton from 'components/defaultButton';
-import { SearchIcon, FilterIcon, CloseIcon } from 'components/icons';
+import { SearchIcon, FilterIcon } from 'components/icons';
 import { countryISOToFlagEmoji } from 'components/inputs/countryListData';
 
 import { resetEvent, resetEventList, fetchEvents, getSearchParams, initialState, getCurrentStatus } from './searchSlice';

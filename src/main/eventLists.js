@@ -14,7 +14,20 @@ import EventEmptyState from 'main/eventEmptyState';
 import EventDetails from './eventDetails';
 import EventErrorState from './eventErrorState';
 
-const EventLists = ({ initialState, onUploadInitialState, onSearchInputFocus }) => {
+/**
+ * main component to display list of events
+ * renders and handles
+ * - initial state
+ * - loading state
+ * - empty state
+ * - error state
+ * - list of events
+ * - load more events
+ * @param {bool} initialState - is true no search is performed or reset the filters
+ * @param {func} onUpdateInitialState - is update the initialState
+ * @param {func} onSearchInputFocus - is focus on the search input
+ */
+const EventLists = ({ initialState, onUpdateInitialState, onSearchInputFocus }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
 
@@ -27,7 +40,7 @@ const EventLists = ({ initialState, onUploadInitialState, onSearchInputFocus }) 
 
   const showSuggestions = () => {
     dispatch(fetchSuggestedEvents());
-    onUploadInitialState(false);
+    onUpdateInitialState(false);
   }
 
   const handleLoadMore = debounce((params) => {

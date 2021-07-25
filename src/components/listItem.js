@@ -16,6 +16,13 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
   },
 }))
+/**
+ * A component that renders icon and content in a defined way
+ * @param {any} icon
+ * @param {string} title 
+ * @param {string} subtitle
+ * @param {any} content  
+ */
 
 const ListItem = ({
   icon, 

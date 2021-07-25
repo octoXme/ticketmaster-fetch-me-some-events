@@ -28,6 +28,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+/**
+ * 
+ * @param {func} onClickSearch when user click on search button 
+ * @param {func} onClickShowSuggestion when user click on suggestion button 
+ */
 const EventInitialState = ({
   onClickSearch,
   onClickShowSuggestion,

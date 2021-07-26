@@ -9,6 +9,7 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flex: 1,
+    wordBreak: 'break-word',
   },
   icon: {
     width: 40,

@@ -15,9 +15,11 @@ jobs:
         with:
           node-version: 14
 
-      - name: Install and Build 🔧
+      - name: Install
         run: npm install
+      - name: Build
         run: npm run build
+      - name: Test
         run: npm test
 
       - name: Deploy 🚀

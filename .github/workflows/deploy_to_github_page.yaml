@@ -8,6 +8,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     concurrency: ci-${{ github.ref }}
+    environment: github-pages
+    env:
+      REACT_APP_TICKET_MASTER_API_KEY: ${{ secrets.REACT_APP_TICKET_MASTER_API_KEY }}
+      REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
@@ -15,13 +19,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 14
-    
-      - name: Create env file
-        run: |
-          touch .env
-          echo REACT_APP_TICKET_MASTER_API_KEY=${{ secrets.REACT_APP_TICKET_MASTER_API_KEY }} >> .env
-          echo REACT_APP_GOOGLE_MAPS_API_KEY=${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }} >> .env
-          cat .env
 
       - name: Install
         run: npm install

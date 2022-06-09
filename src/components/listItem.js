@@ -28,7 +28,15 @@ const useStyles = makeStyles((theme) => ({
 
 const ListItem = ({ icon, title, content, tooltip }) => {
   const classes = useStyles();
-  const contentHtml = DOMPurify.sanitize(content);
+
+  const renderContent = () => {
+    if (typeof content === 'string') {
+      const contentHtml = DOMPurify.sanitize(content);
+      return <div dangerouslySetInnerHTML={{ __html: contentHtml }} />;
+    }
+    return content;
+  };
+
   return (
     <div className={classes.root}>
       <Tooltip title={tooltip}>
@@ -40,7 +48,7 @@ const ListItem = ({ icon, title, content, tooltip }) => {
             {title}
           </Typography>
         )}
-        <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+        {renderContent()}
       </div>
     </div>
   );

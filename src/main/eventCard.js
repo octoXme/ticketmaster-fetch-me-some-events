@@ -1,19 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardActionArea, Typography, Box, LinearProgress } from '@material-ui/core';
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardHeader,
+  LinearProgress,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import EventAddress from 'main/eventAddress';
-import { getDateInfo, getFormattedDate } from 'helpers/format-date-string';
 import IconButton from 'components/iconButton';
-import { TicketIcon, ArrowIcon } from 'components/icons';
+import { ArrowIcon, TicketIcon } from 'components/icons';
+import {
+  DefaultDateTimeFormat,
+  getDateInfo,
+  getFormattedDate,
+  isSameYear,
+  PreferredLongDateTimeFormat,
+  PreferredShortDateTimeFormat,
+} from 'helpers/format-date-string';
+import EventAddress from 'main/eventAddress';
 import EventImage from 'main/eventImage';
+import React, { useEffect, useState } from 'react';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: '100%',
     borderRadius: theme.shape.borderRadius,
     '&:hover': {
-      boxShadow: `0 0 0 4px ${theme.palette.primary.main}`
+      boxShadow: `0 0 0 4px ${theme.palette.primary.main}`,
     },
   },
   container: {
@@ -41,7 +54,7 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1,
   },
   calendar: {
-    width: (48 * 2) - 16,
+    width: 48 * 2 - 16,
     marginRight: 0,
   },
   loader: {
@@ -55,18 +68,13 @@ const useStyles = makeStyles(theme => ({
 
 /**
  * A Component that display simple details of an event
- * 
+ *
  * @param {object} event
  * @param {bool} loading - will set to true when user click on an event that they wish to view
  * @param {func} onClick - click on the card or detail icon
  * @param {func} onEventLoaded - once loader reaches 100%, this event should fire to notify parent that loading is finished
  */
-const EventCard = ({
-  event,
-  loading,
-  onClick,
-  onEventLoaded,
-}) => {
+const EventCard = ({ event, loading, onClick, onEventLoaded }) => {
   const classes = useStyles();
   const [progress, setProgress] = useState(0);
 
@@ -74,6 +82,10 @@ const EventCard = ({
   // event start date
   const date = event.dates?.start;
   const startDate = date.dateTime ?? date.localDate;
+
+  const displayFormat = isSameYear(startDate)
+    ? PreferredShortDateTimeFormat
+    : PreferredLongDateTimeFormat;
   // time string can be read from dateTime
   // however, not all events returns dateTime
   // uses localTime for the time string
@@ -89,12 +101,14 @@ const EventCard = ({
     } else {
       setProgress(0);
     }
-  }, [loading])
+  }, [loading]);
 
   useEffect(() => {
     const timer = setInterval(() => {
       if (progress) {
-        setProgress(prevProgress => (prevProgress >= 100 ? 100 : prevProgress + 40));
+        setProgress((prevProgress) =>
+          prevProgress >= 100 ? 100 : prevProgress + 40
+        );
       }
     }, 300);
 
@@ -105,59 +119,80 @@ const EventCard = ({
     return () => {
       clearInterval(timer);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress]);
 
   const handleViewDetails = (event) => {
     event.stopPropagation();
     onClick();
   };
-  
+
   return (
     <Card className={classes.root} elevation={8}>
-      <CardActionArea className={classes.container} disableRipple onClick={onClick} component="div">
-        <EventImage className={classes.image} images={images} size="small">
+      <CardActionArea
+        className={classes.container}
+        disableRipple
+        onClick={onClick}
+        component='div'
+      >
+        <EventImage className={classes.image} images={images} size='small'>
           <div className={classes.ticket}>
             <IconButton
               href={url}
-              target="_blank"
-              onClick={event => event.stopPropagation() }
-              icon={<TicketIcon color="secondary" />}
-              title="Get Tickets!"
+              target='_blank'
+              onClick={(event) => event.stopPropagation()}
+              icon={<TicketIcon color='secondary' />}
+              title='Get Tickets!'
             />
             <IconButton
               onClick={handleViewDetails}
               icon={<ArrowIcon />}
-              title="View Event Details"
+              title='View Event Details'
             />
           </div>
-          <LinearProgress classes={{ root: classes.loader, bar: progress === 0 ? classes.loaderBar : '' }} variant="determinate" value={progress} />
+          <LinearProgress
+            classes={{
+              root: classes.loader,
+              bar: progress === 0 ? classes.loaderBar : '',
+            }}
+            variant='determinate'
+            value={progress}
+          />
         </EventImage>
         <CardHeader
-          classes={{ root: classes.header, avatar: classes.calendar}}
+          classes={{ root: classes.header, avatar: classes.calendar }}
           avatar={
             <div>
               {dateInfo && (
-                  <Box display="flex" alignItems="center" flexDirection="column">
-                  <Typography variant="h4">{dateInfo?.day}</Typography>
-                  <Typography color="textSecondary">{dateInfo?.month}</Typography>
+                <Box display='flex' alignItems='center' flexDirection='column'>
+                  <Typography variant='h4'>{dateInfo?.day}</Typography>
+                  <Typography color='textSecondary'>
+                    {dateInfo?.month}
+                  </Typography>
                 </Box>
-                )}
+              )}
             </div>
           }
-          title={<Box fontWeight="700">{name}</Box>}
-          subheader={(
+          title={<Box fontWeight='700'>{name}</Box>}
+          subheader={
             <Box>
               <div>
-                <Typography color="secondary" variant="caption">{getFormattedDate(startDate, startTime)}</Typography>
+                <Typography color='secondary' variant='caption'>
+                  {getFormattedDate(
+                    startDate,
+                    startTime,
+                    DefaultDateTimeFormat,
+                    displayFormat
+                  )}
+                </Typography>
               </div>
               <EventAddress location={location} displayAddressShort />
             </Box>
-          )}
+          }
         />
       </CardActionArea>
     </Card>
-  )
+  );
 };
 
 export default EventCard;

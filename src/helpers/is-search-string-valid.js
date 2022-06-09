@@ -1,13 +1,17 @@
-import { size, trim, isString } from 'lodash';
+import { isString, size, trim } from 'lodash';
 
 /**
  * Check if string is fullfil the min and max conditions
- * @param {string} searchString 
- * @param {number} length 
- * @param {number} maxLength 
- * @returns 
+ * @param {string} searchString
+ * @param {number} length
+ * @param {number} maxLength
+ * @returns boolean
  */
-export default function isSearchStringValid(searchString, length = 1, maxLength = 150) {
+export default function isSearchStringValid(
+  searchString,
+  length = 1,
+  maxLength = 150
+) {
   if (!isString(searchString)) return false;
   const inputLength = size(trim(searchString));
 

@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
-import { isEmpty, map, debounce } from 'lodash';
 import { useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
-
-import EventCard from 'main/eventCard';
-import PanelContent from 'components/panelContent';
-import { fetchEvents, getCurrentStatus, getSearchResults, getPageInfo, getSearchParams, fetchSuggestedEvents } from 'features/search/searchSlice';
 import InfiniteLoadingList from 'components/infiniteLoadingList';
+import PanelContent from 'components/panelContent';
 import { openDialog } from 'features/dialog/dialogSlice';
-import EventInitialState from 'main/eventInitialState';
+import {
+  fetchEvents,
+  fetchSuggestedEvents,
+  getCurrentStatus,
+  getPageInfo,
+  getSearchParams,
+  getSearchResults,
+} from 'features/search/searchSlice';
+import { debounce, isEmpty, map } from 'lodash';
+import EventCard from 'main/eventCard';
 import EventEmptyState from 'main/eventEmptyState';
+import EventInitialState from 'main/eventInitialState';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import EventDetails from './eventDetails';
 import EventErrorState from './eventErrorState';
 
@@ -27,7 +33,11 @@ import EventErrorState from './eventErrorState';
  * @param {func} onUpdateInitialState - is update the initialState
  * @param {func} onSearchInputFocus - is focus on the search input
  */
-const EventLists = ({ initialState, onUpdateInitialState, onSearchInputFocus }) => {
+const EventLists = ({
+  initialState,
+  onUpdateInitialState,
+  onSearchInputFocus,
+}) => {
   const dispatch = useDispatch();
   const theme = useTheme();
 
@@ -41,16 +51,24 @@ const EventLists = ({ initialState, onUpdateInitialState, onSearchInputFocus }) 
   const showSuggestions = () => {
     dispatch(fetchSuggestedEvents());
     onUpdateInitialState(false);
-  }
+  };
 
   const handleLoadMore = debounce((params) => {
-    dispatch(fetchEvents({ ...currentSearchParams, pageNumber: pageInfo.number + 1, shouldClearList: false }))
+    dispatch(
+      fetchEvents({
+        ...currentSearchParams,
+        pageNumber: pageInfo.number + 1,
+        shouldClearList: false,
+      })
+    );
   }, 300);
 
   const eventLoaded = (event) => {
-    dispatch(openDialog({
-      children: (<EventDetails event={event} />)
-    }));
+    dispatch(
+      openDialog({
+        children: <EventDetails event={event} />,
+      })
+    );
     setTimeout(() => {
       setCurrentLoading(null);
     }, 300);
@@ -65,7 +83,7 @@ const EventLists = ({ initialState, onUpdateInitialState, onSearchInputFocus }) 
         />
       );
     }
-  
+
     if (currentState === 'idle' && isEmpty(events)) {
       return <EventEmptyState />;
     }
@@ -76,7 +94,7 @@ const EventLists = ({ initialState, onUpdateInitialState, onSearchInputFocus }) 
 
     return (
       <PanelContent itemsPerRow={itemsPerRow}>
-        {map(events, event => (
+        {map(events, (event) => (
           <EventCard
             key={event.id}
             event={event}

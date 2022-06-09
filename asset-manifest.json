@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ticketmaster-fetch-me-some-events/static/css/main.12270947.css",
-    "main.js": "/ticketmaster-fetch-me-some-events/static/js/main.fb1bb555.js",
+    "main.js": "/ticketmaster-fetch-me-some-events/static/js/main.f6ba7215.js",
     "static/media/rubik-latin-700.woff": "/ticketmaster-fetch-me-some-events/static/media/rubik-latin-700.7b2f041147b2f9e2a935.woff",
     "static/media/rubik-latin-500.woff": "/ticketmaster-fetch-me-some-events/static/media/rubik-latin-500.dffa81df1b4c0aa04e6b.woff",
     "static/media/rubik-latin-600.woff": "/ticketmaster-fetch-me-some-events/static/media/rubik-latin-600.5e6208a9c17c0002601b.woff",
@@ -32,10 +32,10 @@
     "static/media/rubik-latin-300italic.woff2": "/ticketmaster-fetch-me-some-events/static/media/rubik-latin-300italic.8f31d954b7db8c1a98e4.woff2",
     "index.html": "/ticketmaster-fetch-me-some-events/index.html",
     "main.12270947.css.map": "/ticketmaster-fetch-me-some-events/static/css/main.12270947.css.map",
-    "main.fb1bb555.js.map": "/ticketmaster-fetch-me-some-events/static/js/main.fb1bb555.js.map"
+    "main.f6ba7215.js.map": "/ticketmaster-fetch-me-some-events/static/js/main.f6ba7215.js.map"
   },
   "entrypoints": [
     "static/css/main.12270947.css",
-    "static/js/main.fb1bb555.js"
+    "static/js/main.f6ba7215.js"
   ]
 }

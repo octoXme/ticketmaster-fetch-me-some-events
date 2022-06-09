@@ -16,10 +16,11 @@ jobs:
         with:
           node-version: 14
     
-      - name: Environment variables
+      - name: create env file
         run: |
-          echo "The GOOGLE MAP API key is:${{secrets.REACT_APP_GOOGLE_MAPS_API_KEY}}"
-          echo "The TICKET MASTER API key is:${{secrets.REACT_APP_TICKET_MASTER_API_KEY}}"
+          touch .env
+          echo REACT_APP_GOOGLE_MAPS_API_KEY=${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }} >> .env
+          echo REACT_APP_TICKET_MASTER_API_KEY=${{ secrets.REACT_APP_TICKET_MASTER_API_KEY }} >> .env
 
       - name: Install
         run: npm install

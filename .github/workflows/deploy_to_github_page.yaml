@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - main
+
+env:
+  REACT_APP_GOOGLE_MAPS_API_KEY: ${{ env.REACT_APP_GOOGLE_MAPS_API_KEY }}
+  REACT_APP_TICKET_MASTER_API_KEY: ${{ env.REACT_APP_TICKET_MASTER_API_KEY }}
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest

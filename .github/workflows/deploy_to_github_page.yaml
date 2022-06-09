@@ -23,6 +23,12 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Environment variables
+        run: |
+          echo "The GOOGLE MAP API key is:${{secrets.REACT_APP_GOOGLE_MAPS_API_KEY}}"
+          echo "The TICKET MASTER API key is:${{secrets.REACT_APP_TICKET_MASTER_API_KEY}}"
+  
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
@@ -30,5 +36,3 @@ jobs:
           folder: build # The folder the action should deploy.
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-          REACT_APP_TICKET_MASTER_API_KEY: ${{ secrets.REACT_APP_TICKET_MASTER_API_KEY }}
